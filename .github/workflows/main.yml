@@ -1,0 +1,53 @@
+name: 'CRC build and deploy'
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+jobs:
+  stage-job:
+    name: 'Stage build and deploy'
+    runs-on: ubuntu-latest
+    env:
+      working_dir: ./terraform/stage/
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Terraform Setup
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.13.0
+
+    - name: Terraform Init for Stage
+      working-directory: ${{ env.working_dir  }}
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: terraform init
+
+    - name: Terraform Format for Stage
+      working-directory: ${{ env.working_dir  }}
+      run: terraform fmt -check
+
+    - name: Terraform Plan for Stage
+      working-directory: ${{ env.working_dir  }}
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: terraform plan
+
+    - name: Terraform Apply for Stage
+      working-directory: ${{ env.working_dir  }}
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: terraform apply -auto-approve
