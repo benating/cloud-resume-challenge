@@ -21,9 +21,10 @@ provider "aws" {
 }
 
 locals {
-  env = "stage"
-  s3_origin_id = "CVBucketOrigin"
+  env              = "stage"
+  s3_origin_id     = "CVBucketOrigin"
   root_domain_name = "bernardting.com"
+  cv_domain_name   = "cv.${local.root_domain_name}"
 }
 
 resource "aws_s3_bucket" "cv-bucket" {
@@ -83,7 +84,7 @@ data "aws_route53_zone" "zone" {
 
 resource "aws_route53_record" "www" {
   zone_id = data.aws_route53_zone.zone.zone_id
-  name    = "cv.${local.root_domain_name}"
+  name    = local.cv_domain_name
   type    = "A"
 
   alias {
@@ -149,7 +150,7 @@ resource "aws_cloudfront_distribution" "www-distribution" {
     }
   }
 
-  aliases = [local.root_domain_name]
+  aliases = [local.cv_domain_name]
 
   restrictions {
     geo_restriction {
