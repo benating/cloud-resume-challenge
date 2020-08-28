@@ -11,7 +11,7 @@ terraform {
 
 provider "aws" {
   version = "~> 3.0"
-  region  = "eu-west-2"
+  region  = local.region
 }
 
 provider "aws" {
@@ -21,6 +21,9 @@ provider "aws" {
 }
 
 locals {
+  account_id       = "973533177904"
+  region           = "eu-west-2"
+  lambda_zip_path  = "../../lambda.zip"
   env              = "stage"
   s3_origin_id     = "CVBucketOrigin"
   root_domain_name = "bernardting.com"
