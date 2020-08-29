@@ -45,7 +45,7 @@ POLICY
 resource "aws_iam_policy" "get-dynamodb-policy" {
   name        = "crc-lambda-get-dynamodb-policy"
   description = "Policy for crc-lambda-get role to manage crc-counter dynamodb."
-  policy = <<POLICY
+  policy      = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [

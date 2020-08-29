@@ -49,7 +49,7 @@ POLICY
 resource "aws_iam_policy" "inc-dynamodb-policy" {
   name        = "crc-lambda-inc-dynamodb-policy"
   description = "Policy for crc-lambda-inc role to manage crc-counter dynamodb."
-  policy = <<POLICY
+  policy      = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
