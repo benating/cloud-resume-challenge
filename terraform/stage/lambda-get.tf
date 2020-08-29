@@ -52,13 +52,11 @@ resource "aws_iam_policy" "get-dynamodb-policy" {
     {
       "Action": [
         "dynamodb:DescribeTable",
-        "dynamodb:PutItem",
-        "dynamodb:UpdateItem",
         "dynamodb:GetItem"
       ],
       "Resource": "${aws_dynamodb_table.counter-db.arn}",
       "Effect": "Allow",
-      "Sid": "AllowReadAndWriteToDynamoDb"
+      "Sid": "AllowReadDynamoDb"
     }
   ]
 }

@@ -30,6 +30,12 @@ resource "aws_cloudfront_distribution" "www-distribution" {
         forward = "none"
       }
     }
+
+    lambda_function_association {
+      event_type   = "viewer-response"
+      lambda_arn   = aws_lambda_function.lambda-inc-function-use1.qualified_arn
+      include_body = false
+    }
   }
 
   aliases = [local.cv_domain_name]
