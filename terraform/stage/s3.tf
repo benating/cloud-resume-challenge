@@ -10,9 +10,9 @@ resource "aws_s3_bucket" "cv-bucket" {
 resource "aws_s3_bucket_object" "cv-upload" {
   bucket       = aws_s3_bucket.cv-bucket.id
   key          = "index.html"
-  source       = "../../src/main/resources/CV.html"
+  source       = "../../resources/CV.html"
   content_type = "text/html"
-  etag         = filemd5("../../src/main/resources/CV.html")
+  etag         = filemd5("../../resources/CV.html")
 }
 
 resource "aws_s3_bucket_policy" "cv-bucket-policy" {
