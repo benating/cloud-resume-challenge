@@ -15,6 +15,10 @@ def lambda_handler(event, context):
         body = response['Item']['NumberOfHits'] if ('Item' in response) else 0
 
     return {
+        'headers': {
+            'Access-Control-Allow-Origin': '*'
+        },
         'statusCode': 200,
         'body': f"{body}"
     }
+

@@ -5,6 +5,7 @@ data "archive_file" "lambda-inc-zip" {
 }
 
 resource "aws_lambda_permission" "cloudfront-lambda-inc" {
+  provider      = aws.use1
   statement_id  = "AllowExecutionFromCloudfront"
   action        = "lambda:GetFunction"
   function_name = aws_lambda_function.lambda-inc-function-use1.function_name
