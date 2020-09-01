@@ -6,8 +6,15 @@ host my CV at <https://cv.bernardting.com>, inspired by
 
 ## Application architecture
 
-The frontend consists of HTML and JavaScript, while the backend is
-written in Python.
+![System architecture diagram of how this project is deployed in AWS.](/docs/images/architecture_diagram.png)
+
+This project is basically a simple static website hosted on S3, with
+a DynamoDB to store a counter for the number of visitors, and some
+supporting infrastructure to host the site and automate updating the
+counter.
+
+The frontend (for now) consists of very basic HTML and JavaScript,
+while the backend is written in Python.
 
 ## Build pipeline
 
