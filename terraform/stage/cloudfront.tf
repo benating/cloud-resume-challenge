@@ -7,7 +7,7 @@ resource "aws_cloudfront_distribution" "www-distribution" {
       origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
     }
 
-    domain_name = aws_s3_bucket.cv-bucket.website_endpoint
+    domain_name = "${var.cv_s3_bucket}.s3-website.${local.region}.amazonaws.com"
     origin_id   = local.s3_origin_id
   }
 
